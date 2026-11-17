@@ -96,6 +96,12 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 // Category service
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+// Expense Repository
+builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
+
+// Expense Service
+builder.Services.AddScoped<IExpenseService, ExpenseService>();
+
 // Angular CORS
 builder.Services.AddCors(options =>
 {

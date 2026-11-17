@@ -295,6 +295,46 @@ namespace PersonalExpenseTracker.Api.Migrations
                         });
                 });
 
+            modelBuilder.Entity("PersonalExpenseTracker.Api.Models.Expense", b =>
+                {
+                    b.Property<int>("ExpenseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExpenseId"));
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<DateTime>("ExpenseDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ExpenseId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Expenses");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -356,9 +396,35 @@ namespace PersonalExpenseTracker.Api.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("PersonalExpenseTracker.Api.Models.Expense", b =>
+                {
+                    b.HasOne("PersonalExpenseTracker.Api.Models.Category", "Category")
+                        .WithMany("Expenses")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("PersonalExpenseTracker.Api.Models.ApplicationUser", "User")
+                        .WithMany("Expenses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("PersonalExpenseTracker.Api.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Categories");
+
+                    b.Navigation("Expenses");
+                });
+
+            modelBuilder.Entity("PersonalExpenseTracker.Api.Models.Category", b =>
+                {
+                    b.Navigation("Expenses");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,4 +14,6 @@ public class Category
     public string? UserId { get; set; }
 
     public ApplicationUser? User { get; set; }
+    public ICollection<Expense> Expenses { get; set; }
+    = new List<Expense>();
 }
