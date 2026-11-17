@@ -1,0 +1,82 @@
+
+<div class="dashboard-container">
+
+    <header class="dashboard-header">
+
+        <h2>Personal Expense Tracker</h2>
+
+        <button class="logout-button" (click)="logout()">
+            Logout
+        </button>
+
+    </header>
+
+    <main class="dashboard-content">
+
+        @if (isLoading()) {
+
+            <div class="loading-message">
+                <p>Loading your profile...</p>
+            </div>
+
+        } @else if (errorMessage()) {
+
+            <div class="error-message">
+                {{ errorMessage() }}
+            </div>
+
+        } @else {
+
+            @if (authService.currentUser(); as user) {
+
+                <div class="welcome-card">
+
+                    <h1>
+                        Welcome, {{ user.fullName }}!
+                    </h1>
+
+                    <p class="success-message">
+                        You have successfully logged in.
+                    </p>
+
+                    <div class="user-details">
+
+                        <h3>Your Profile</h3>
+
+                        <p>
+                            <strong>User ID:</strong>
+                            {{ user.userId }}
+                        </p>
+
+                        <p>
+                            <strong>Full Name:</strong>
+                            {{ user.fullName }}
+                        </p>
+
+                        <p>
+                            <strong>Email:</strong>
+                            {{ user.email }}
+                        </p>
+
+                        <p>
+                            <strong>Phone:</strong>
+                            {{ user.phoneNumber || 'Not provided' }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            } @else {
+
+                <div class="error-message">
+                    User information is unavailable.
+                </div>
+
+            }
+
+        }
+
+    </main>
+
+</div>

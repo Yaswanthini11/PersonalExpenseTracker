@@ -1,0 +1,87 @@
+
+.dashboard-container {
+    min-height: 100vh;
+    background-color: #f3f6fa;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-header h2 {
+    color: #26354a;
+    margin: 0;
+}
+
+.logout-button {
+    padding: 10px 22px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.logout-button:hover {
+    background-color: #b02a37;
+}
+
+.dashboard-content {
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.welcome-card {
+    width: 100%;
+    max-width: 650px;
+    background-color: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.welcome-card h1 {
+    color: #26354a;
+    margin-top: 0;
+}
+
+.success-message {
+    color: #198754;
+    margin-bottom: 30px;
+}
+
+.user-details {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 20px;
+}
+
+.user-details h3 {
+    color: #26354a;
+    margin-bottom: 20px;
+}
+
+.user-details p {
+    color: #555;
+    margin-bottom: 15px;
+    overflow-wrap: anywhere;
+}
+
+.loading-message {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+}
+
+.error-message {
+    color: #dc3545;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
