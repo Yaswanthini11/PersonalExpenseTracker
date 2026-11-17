@@ -1,0 +1,370 @@
+<div class="expenses-page">
+
+    <div class="page-header">
+        <div>
+            <h1>Expense Management</h1>
+            <p>Track and manage your daily expenses.</p>
+        </div>
+    </div>
+
+    <!-- Summary cards -->
+    <div class="summary-grid">
+
+        <div class="summary-card">
+            <span>Total Expenses</span>
+            <h2>{{ totalExpenses() }}</h2>
+        </div>
+
+        <div class="summary-card">
+            <span>Total Amount</span>
+            <h2>₹{{ totalAmount().toFixed(2) }}</h2>
+        </div>
+
+    </div>
+
+    <!-- Success message -->
+    @if (success()) {
+        <div class="alert success-alert">
+            {{ success() }}
+        </div>
+    }
+
+    <!-- Error message -->
+    @if (error()) {
+        <div class="alert error-alert">
+            {{ error() }}
+        </div>
+    }
+
+    <!-- Expense form -->
+    <section class="form-section">
+
+        <div class="section-header">
+            <h2>
+                {{ editingExpenseId() === null ? 'Add New Expense' : 'Update Expense' }}
+            </h2>
+        </div>
+
+        <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="title">Expense Title</label>
+
+                    <input
+                        id="title"
+                        type="text"
+                        formControlName="title"
+                        placeholder="Enter expense title"
+                    />
+
+                    @if (
+                        expenseForm.controls.title.touched &&
+                        expenseForm.controls.title.invalid
+                    ) {
+                        <small class="validation-error">
+                            Enter a title between 2 and 100 characters.
+                        </small>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="amount">Amount (₹)</label>
+
+                    <input
+                        id="amount"
+                        type="number"
+                        formControlName="amount"
+                        min="0.01"
+                        step="0.01"
+                        placeholder="Enter amount"
+                    />
+
+                    @if (
+                        expenseForm.controls.amount.touched &&
+                        expenseForm.controls.amount.invalid
+                    ) {
+                        <small class="validation-error">
+                            Amount must be greater than zero.
+                        </small>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="expenseDate">Expense Date</label>
+
+                    <input
+                        id="expenseDate"
+                        type="date"
+                        formControlName="expenseDate"
+                    />
+
+                    @if (
+                        expenseForm.controls.expenseDate.touched &&
+                        expenseForm.controls.expenseDate.invalid
+                    ) {
+                        <small class="validation-error">
+                            Please select an expense date.
+                        </small>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="categoryId">Category</label>
+
+                    <select
+                        id="categoryId"
+                        formControlName="categoryId"
+                    >
+                        <option [ngValue]="0">Select category</option>
+
+                        @for (category of categories(); track category.categoryId) {
+                            <option [ngValue]="category.categoryId">
+                                {{ category.name }}
+                            </option>
+                        }
+                    </select>
+
+                    @if (
+                        expenseForm.controls.categoryId.touched &&
+                        expenseForm.controls.categoryId.invalid
+                    ) {
+                        <small class="validation-error">
+                            Please select a category.
+                        </small>
+                    }
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="description">Description</label>
+
+                    <textarea
+                        id="description"
+                        formControlName="description"
+                        rows="3"
+                        placeholder="Enter description (optional)"
+                    ></textarea>
+
+                    @if (
+                        expenseForm.controls.description.touched &&
+                        expenseForm.controls.description.invalid
+                    ) {
+                        <small class="validation-error">
+                            Description cannot exceed 250 characters.
+                        </small>
+                    }
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                    [disabled]="saving()"
+                >
+                    {{
+                        saving()
+                            ? 'Saving...'
+                            : editingExpenseId() === null
+                                ? 'Add Expense'
+                                : 'Update Expense'
+                    }}
+                </button>
+
+                @if (editingExpenseId() !== null) {
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        (click)="resetForm()"
+                    >
+                        Cancel
+                    </button>
+                }
+
+            </div>
+
+        </form>
+
+    </section>
+
+    <!-- Expense filters -->
+    <section class="filter-section">
+
+        <div class="section-header">
+            <h2>Filter Expenses</h2>
+        </div>
+
+        <div class="filter-grid">
+
+            <div class="form-group">
+                <label for="filterMonth">Month</label>
+
+                <select
+                    id="filterMonth"
+                    [value]="selectedMonth() ?? ''"
+                    (change)="selectedMonth.set($any($event.target).value ? +$any($event.target).value : null)"
+                >
+                    <option value="">All Months</option>
+                    <option [value]="1">January</option>
+                    <option [value]="2">February</option>
+                    <option [value]="3">March</option>
+                    <option [value]="4">April</option>
+                    <option [value]="5">May</option>
+                    <option [value]="6">June</option>
+                    <option [value]="7">July</option>
+                    <option [value]="8">August</option>
+                    <option [value]="9">September</option>
+                    <option [value]="10">October</option>
+                    <option [value]="11">November</option>
+                    <option [value]="12">December</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="filterYear">Year</label>
+
+                <input
+                    id="filterYear"
+                    type="number"
+                    placeholder="Enter year"
+                    [value]="selectedYear() ?? ''"
+                    (input)="selectedYear.set($any($event.target).value ? +$any($event.target).value : null)"
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="filterCategory">Category</label>
+
+                <select
+                    id="filterCategory"
+                    [value]="selectedCategoryId() ?? ''"
+                    (change)="selectedCategoryId.set($any($event.target).value ? +$any($event.target).value : null)"
+                >
+                    <option value="">All Categories</option>
+
+                    @for (category of categories(); track category.categoryId) {
+                        <option [value]="category.categoryId">
+                            {{ category.name }}
+                        </option>
+                    }
+                </select>
+            </div>
+
+        </div>
+
+        <div class="filter-actions">
+            <button
+                type="button"
+                class="primary-button"
+                (click)="applyFilters()"
+            >
+                Apply Filters
+            </button>
+
+            <button
+                type="button"
+                class="secondary-button"
+                (click)="clearFilters()"
+            >
+                Clear Filters
+            </button>
+        </div>
+
+    </section>
+
+    <!-- Expense list -->
+    <section class="expense-list-section">
+
+        <div class="section-header">
+            <h2>Your Expenses</h2>
+            <span>{{ totalExpenses() }} records</span>
+        </div>
+
+        @if (loading()) {
+            <div class="empty-state">
+                Loading expenses...
+            </div>
+        } @else if (expenses().length === 0) {
+            <div class="empty-state">
+                <h3>No expenses found</h3>
+                <p>Add an expense or change your filters.</p>
+            </div>
+        } @else {
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @for (expense of expenses(); track expense.expenseId) {
+                            <tr>
+                                <td>{{ expense.title }}</td>
+
+                                <td class="amount">
+                                    ₹{{ expense.amount.toFixed(2) }}
+                                </td>
+
+                                <td>
+                                    {{ expense.expenseDate | date:'dd MMM yyyy' }}
+                                </td>
+
+                                <td>
+                                    <span class="category-label">
+                                        {{ expense.categoryName }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    {{ expense.description || '-' }}
+                                </td>
+
+                                <td>
+                                    <div class="action-buttons">
+
+                                        <button
+                                            type="button"
+                                            class="edit-button"
+                                            (click)="editExpense(expense)"
+                                        >
+                                            Edit
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="delete-button"
+                                            (click)="deleteExpense(expense.expenseId)"
+                                        >
+                                            Delete
+                                        </button>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        }
+
+    </section>
+
+</div>

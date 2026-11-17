@@ -224,6 +224,36 @@ namespace PersonalExpenseTracker.Api.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("PersonalExpenseTracker.Api.Models.Budget", b =>
+                {
+                    b.Property<int>("BudgetId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BudgetId"));
+
+                    b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("BudgetId");
+
+                    b.HasIndex("UserId", "Year", "Month")
+                        .IsUnique();
+
+                    b.ToTable("Budgets");
+                });
+
             modelBuilder.Entity("PersonalExpenseTracker.Api.Models.Category", b =>
                 {
                     b.Property<int>("CategoryId")
@@ -386,6 +416,17 @@ namespace PersonalExpenseTracker.Api.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("PersonalExpenseTracker.Api.Models.Budget", b =>
+                {
+                    b.HasOne("PersonalExpenseTracker.Api.Models.ApplicationUser", "User")
+                        .WithMany("Budgets")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("PersonalExpenseTracker.Api.Models.Category", b =>
                 {
                     b.HasOne("PersonalExpenseTracker.Api.Models.ApplicationUser", "User")
@@ -417,6 +458,8 @@ namespace PersonalExpenseTracker.Api.Migrations
 
             modelBuilder.Entity("PersonalExpenseTracker.Api.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Budgets");
+
                     b.Navigation("Categories");
 
                     b.Navigation("Expenses");

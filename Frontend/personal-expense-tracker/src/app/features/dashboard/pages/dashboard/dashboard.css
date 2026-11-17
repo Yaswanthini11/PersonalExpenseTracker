@@ -1,51 +1,57 @@
 
-.dashboard-container {
+.dashboard-page {
     min-height: 100vh;
-    background-color: #f3f6fa;
+    background: #f3f6fa;
+    color: #243047;
 }
 
 /* Header */
 
 .dashboard-header {
+    background: #ffffff;
+    padding: 18px 5%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 18px 7%;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
+    justify-content: space-between;
+    border-bottom: 1px solid #e5eaf1;
 }
 
 .brand h2 {
     margin: 0;
-    color: #2563eb;
-    font-size: 23px;
-    font-weight: 700;
+    font-size: 21px;
+    color: #3451c6;
+}
+
+.brand p {
+    margin: 5px 0 0;
+    font-size: 13px;
+    color: #718096;
 }
 
 .logout-button {
     padding: 10px 20px;
-    background-color: #dc2626;
-    color: #ffffff;
+    background: #fff0ef;
+    color: #c43226;
     border: none;
     border-radius: 6px;
     font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
 }
 
 .logout-button:hover {
-    background-color: #b91c1c;
+    background: #ffe0dd;
 }
 
-/* Main Content */
+/* Main content */
 
 .dashboard-content {
-    width: 86%;
     max-width: 1200px;
-    margin: 35px auto;
+    margin: 0 auto;
+    padding: 35px 24px;
 }
 
-/* Welcome Section */
+/* Welcome */
 
 .welcome-section {
     margin-bottom: 30px;
@@ -53,176 +59,157 @@
 
 .welcome-section h1 {
     margin: 0 0 10px;
-    color: #1e293b;
-    font-size: 30px;
+    font-size: 28px;
 }
 
 .welcome-section p {
     margin: 0;
-    color: #64748b;
-    font-size: 15px;
-    line-height: 1.6;
+    color: #718096;
 }
 
-/* Profile Card */
+/* Section headings */
 
-.profile-card {
+.section-heading {
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    margin: 0 0 8px;
+    font-size: 21px;
+}
+
+.section-heading p {
+    margin: 0;
+    color: #718096;
+    font-size: 14px;
+}
+
+/* Profile */
+
+.profile-section {
+    background: #ffffff;
     padding: 25px;
-    margin-bottom: 35px;
-    background-color: #ffffff;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e5eaf1;
     border-radius: 10px;
+    margin-bottom: 35px;
 }
 
-.profile-card h2 {
-    margin: 0 0 22px;
-    color: #1e293b;
-    font-size: 20px;
-}
-
-.profile-details {
+.profile-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 25px;
 }
 
-.detail-item {
+.profile-item {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.detail-label {
-    color: #64748b;
+.profile-item span {
     font-size: 13px;
+    color: #718096;
 }
 
-.detail-value {
-    color: #1e293b;
+.profile-item strong {
     font-size: 15px;
-    font-weight: 600;
+    color: #243047;
     overflow-wrap: anywhere;
 }
 
-/* Modules Section */
+/* Modules */
 
-.modules-section h2 {
-    margin-bottom: 20px;
-    color: #1e293b;
-    font-size: 21px;
+.modules-section {
+    margin-bottom: 30px;
 }
 
-.module-grid {
+.modules-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 22px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
 }
 
 .module-card {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    display: block;
     padding: 25px;
-    min-height: 245px;
-    background-color: #ffffff;
-    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    border: 1px solid #e5eaf1;
     border-radius: 10px;
-    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.module-card:not(.coming-soon):hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+a.module-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(30, 50, 80, 0.08);
 }
 
 .module-icon {
-    margin-bottom: 15px;
-    font-size: 30px;
+    width: 43px;
+    height: 43px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #edf2ff;
+    color: #3451c6;
+    border-radius: 9px;
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 17px;
 }
 
 .module-card h3 {
     margin: 0 0 10px;
-    color: #1e293b;
     font-size: 19px;
 }
 
 .module-card p {
-    margin: 0 0 20px;
-    color: #64748b;
+    margin: 0 0 18px;
+    color: #718096;
     font-size: 14px;
     line-height: 1.6;
 }
 
 .module-link {
-    display: inline-block;
-    margin-top: auto;
-    padding: 10px 16px;
-    background-color: #2563eb;
-    color: #ffffff;
-    text-decoration: none;
-    border-radius: 6px;
+    color: #3451c6;
     font-size: 14px;
-    transition: background-color 0.2s;
-}
-
-.module-link:hover {
-    background-color: #1d4ed8;
-}
-
-/* Coming Soon */
-
-.coming-soon {
-    background-color: #f8fafc;
-}
-
-.coming-soon-label {
-    display: inline-block;
-    margin-top: auto;
-    padding: 7px 12px;
-    background-color: #e2e8f0;
-    color: #475569;
-    border-radius: 5px;
-    font-size: 12px;
     font-weight: 600;
 }
 
-/* Responsive Design */
-
-@media (max-width: 850px) {
-
-    .module-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .profile-details {
-        grid-template-columns: repeat(2, 1fr);
-    }
+.coming-soon {
+    background: #fafbfc;
 }
 
-@media (max-width: 550px) {
+.coming-label {
+    display: inline-block;
+    color: #718096;
+    font-size: 13px;
+    font-weight: 600;
+}
 
-    .dashboard-header {
-        padding: 16px 5%;
-    }
+/* Responsive */
+
+@media (max-width: 768px) {
 
     .dashboard-content {
-        width: 90%;
-        margin: 25px auto;
+        padding: 25px 16px;
+    }
+
+    .profile-grid,
+    .modules-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-header {
+        padding: 16px;
+    }
+
+    .brand h2 {
+        font-size: 17px;
     }
 
     .welcome-section h1 {
-        font-size: 24px;
-    }
-
-    .module-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .profile-details {
-        grid-template-columns: 1fr;
-    }
-
-    .profile-card {
-        padding: 20px;
+        font-size: 23px;
     }
 }

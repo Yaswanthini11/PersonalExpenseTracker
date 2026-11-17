@@ -102,6 +102,8 @@ builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
 // Expense Service
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
 
+builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
+builder.Services.AddScoped<IBudgetService, BudgetService>();
 // Angular CORS
 builder.Services.AddCors(options =>
 {

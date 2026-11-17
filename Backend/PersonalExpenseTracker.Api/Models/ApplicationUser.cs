@@ -10,4 +10,7 @@ public class ApplicationUser : IdentityUser
         = new List<Category>();
     public ICollection<Expense> Expenses { get; set; }
     = new List<Expense>();
+
+    public ICollection<Budget> Budgets { get; set; } = new List<Budget>();
+
 }

@@ -4,7 +4,7 @@ import { Login } from './features/auth/pages/login/login';
 import { Register } from './features/auth/pages/register/register';
 import { Dashboard } from './features/dashboard/pages/dashboard/dashboard';
 import { Categories } from './features/categories/pages/categories/categories';
-
+import { Expenses } from './features/expenses/pages/expenses/expenses';
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -31,6 +31,11 @@ export const routes: Routes = [
         component: Categories,
         canActivate: [authGuard]
     },
+    {
+    path: 'expenses',
+    component: Expenses,
+    canActivate: [authGuard]
+},
     {
         path: '**',
         redirectTo: 'login'

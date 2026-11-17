@@ -18,11 +18,13 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<Expense> Expenses { get; set; }
 
+    public DbSet<Budget> Budgets { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
 
         builder.ApplyConfiguration(new CategoryConfiguration());
+        builder.ApplyConfiguration(new BudgetConfiguration());
 
         builder.ApplyConfiguration(new ExpenseConfiguration());
     }
