@@ -224,6 +224,77 @@ namespace PersonalExpenseTracker.Api.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("PersonalExpenseTracker.Api.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CategoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            Description = "Food and dining expenses",
+                            Name = "Food"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            Description = "Travel and transportation expenses",
+                            Name = "Transportation"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            Description = "Shopping and personal purchases",
+                            Name = "Shopping"
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            Description = "Household bills and utility payments",
+                            Name = "Bills and Utilities"
+                        },
+                        new
+                        {
+                            CategoryId = 5,
+                            Description = "Medical and healthcare expenses",
+                            Name = "Healthcare"
+                        },
+                        new
+                        {
+                            CategoryId = 6,
+                            Description = "Movies and entertainment expenses",
+                            Name = "Entertainment"
+                        },
+                        new
+                        {
+                            CategoryId = 7,
+                            Description = "Education and learning expenses",
+                            Name = "Education"
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -273,6 +344,21 @@ namespace PersonalExpenseTracker.Api.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("PersonalExpenseTracker.Api.Models.Category", b =>
+                {
+                    b.HasOne("PersonalExpenseTracker.Api.Models.ApplicationUser", "User")
+                        .WithMany("Categories")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PersonalExpenseTracker.Api.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Categories");
                 });
 #pragma warning restore 612, 618
         }

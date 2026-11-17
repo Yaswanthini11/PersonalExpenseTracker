@@ -90,6 +90,12 @@ builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 // Service registration
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+// Category repository
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+// Category service
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 // Angular CORS
 builder.Services.AddCors(options =>
 {
