@@ -1,0 +1,26 @@
+# .NET build output
+**/bin/
+**/obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Visual Studio Code
+.vscode/
+
+# Angular / Node
+**/node_modules/
+**/dist/
+**/.angular/
+
+# Environment and local secrets
+.env
+.env.*
+!.env.example
+**/appsettings.Development.json
+
+# OS generated files
+.DS_Store
+Thumbs.db
