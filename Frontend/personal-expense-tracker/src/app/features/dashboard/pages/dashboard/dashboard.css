@@ -1,215 +1,243 @@
 
-.dashboard-page {
+.dashboard-container {
     min-height: 100vh;
+    padding: 30px 5%;
     background: #f3f6fa;
-    color: #243047;
 }
 
 /* Header */
 
 .dashboard-header {
-    background: #ffffff;
-    padding: 18px 5%;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #e5eaf1;
+    align-items: center;
+    background: white;
+    padding: 22px 28px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    gap: 20px;
 }
 
-.brand h2 {
+.header-content h1 {
+    color: #1e293b;
+    font-size: 26px;
+    margin: 0 0 7px;
+}
+
+.header-content p {
+    color: #64748b;
     margin: 0;
-    font-size: 21px;
-    color: #3451c6;
-}
-
-.brand p {
-    margin: 5px 0 0;
-    font-size: 13px;
-    color: #718096;
+    font-size: 14px;
 }
 
 .logout-button {
-    padding: 10px 20px;
-    background: #fff0ef;
-    color: #c43226;
+    background: #dc2626;
+    color: white;
     border: none;
-    border-radius: 6px;
+    padding: 11px 22px;
+    border-radius: 7px;
+    cursor: pointer;
     font-size: 14px;
     font-weight: 600;
-    cursor: pointer;
 }
 
 .logout-button:hover {
-    background: #ffe0dd;
+    background: #b91c1c;
 }
 
-/* Main content */
-
-.dashboard-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 35px 24px;
-}
-
-/* Welcome */
+/* Welcome Section */
 
 .welcome-section {
-    margin-bottom: 30px;
+    background: #2563eb;
+    color: white;
+    padding: 32px;
+    margin-top: 25px;
+    border-radius: 12px;
 }
 
-.welcome-section h1 {
+.welcome-section h2 {
+    font-size: 25px;
     margin: 0 0 10px;
-    font-size: 28px;
 }
 
 .welcome-section p {
     margin: 0;
-    color: #718096;
+    color: #dbeafe;
+    font-size: 15px;
+    line-height: 1.6;
 }
 
-/* Section headings */
+/* Profile Section */
+
+.profile-section {
+    background: white;
+    padding: 25px;
+    margin-top: 25px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.profile-section h2,
+.section-heading h2 {
+    color: #1e293b;
+    margin: 0 0 20px;
+    font-size: 20px;
+}
+
+.profile-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.profile-item {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.profile-item span {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.profile-item strong {
+    color: #334155;
+    font-size: 15px;
+    overflow-wrap: anywhere;
+}
+
+/* Modules Section */
+
+.modules-section {
+    margin-top: 30px;
+}
 
 .section-heading {
     margin-bottom: 20px;
 }
 
 .section-heading h2 {
-    margin: 0 0 8px;
-    font-size: 21px;
+    margin-bottom: 7px;
 }
 
 .section-heading p {
+    color: #64748b;
     margin: 0;
-    color: #718096;
     font-size: 14px;
-}
-
-/* Profile */
-
-.profile-section {
-    background: #ffffff;
-    padding: 25px;
-    border: 1px solid #e5eaf1;
-    border-radius: 10px;
-    margin-bottom: 35px;
-}
-
-.profile-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 25px;
-}
-
-.profile-item {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.profile-item span {
-    font-size: 13px;
-    color: #718096;
-}
-
-.profile-item strong {
-    font-size: 15px;
-    color: #243047;
-    overflow-wrap: anywhere;
-}
-
-/* Modules */
-
-.modules-section {
-    margin-bottom: 30px;
 }
 
 .modules-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
 }
 
+/* Module Cards */
+
 .module-card {
-    display: block;
+    background: white;
     padding: 25px;
-    background: #ffffff;
-    border: 1px solid #e5eaf1;
-    border-radius: 10px;
+    border-radius: 12px;
     text-decoration: none;
     color: inherit;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid transparent;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-a.module-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(30, 50, 80, 0.08);
+.module-card:hover {
+    transform: translateY(-4px);
+    border-color: #bfdbfe;
+    box-shadow: 0 7px 18px rgba(0, 0, 0, 0.08);
 }
 
 .module-icon {
-    width: 43px;
-    height: 43px;
+    width: 52px;
+    height: 52px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #edf2ff;
-    color: #3451c6;
-    border-radius: 9px;
-    font-size: 23px;
-    font-weight: 700;
-    margin-bottom: 17px;
+    border-radius: 10px;
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+.expense-icon {
+    background: #dbeafe;
+}
+
+.category-icon {
+    background: #f3e8ff;
+}
+
+.budget-icon {
+    background: #dcfce7;
 }
 
 .module-card h3 {
-    margin: 0 0 10px;
-    font-size: 19px;
+    color: #1e293b;
+    font-size: 18px;
+    margin: 0 0 12px;
 }
 
 .module-card p {
-    margin: 0 0 18px;
-    color: #718096;
+    color: #64748b;
     font-size: 14px;
     line-height: 1.6;
+    min-height: 45px;
+    margin: 0 0 20px;
 }
 
 .module-link {
-    color: #3451c6;
+    color: #2563eb;
     font-size: 14px;
     font-weight: 600;
 }
 
-.coming-soon {
-    background: #fafbfc;
-}
+/* Responsive Design */
 
-.coming-label {
-    display: inline-block;
-    color: #718096;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-/* Responsive */
-
-@media (max-width: 768px) {
-
-    .dashboard-content {
-        padding: 25px 16px;
+@media (max-width: 900px) {
+    .modules-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .profile-grid,
+    .profile-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-container {
+        padding: 18px;
+    }
+
+    .dashboard-header {
+        align-items: flex-start;
+        padding: 20px;
+    }
+
+    .header-content h1 {
+        font-size: 21px;
+    }
+
+    .logout-button {
+        padding: 9px 14px;
+    }
+
+    .welcome-section {
+        padding: 24px;
+    }
+
+    .welcome-section h2 {
+        font-size: 21px;
+    }
+
     .modules-grid {
         grid-template-columns: 1fr;
     }
 
-    .dashboard-header {
-        padding: 16px;
-    }
-
-    .brand h2 {
-        font-size: 17px;
-    }
-
-    .welcome-section h1 {
-        font-size: 23px;
+    .profile-details {
+        grid-template-columns: 1fr;
     }
 }

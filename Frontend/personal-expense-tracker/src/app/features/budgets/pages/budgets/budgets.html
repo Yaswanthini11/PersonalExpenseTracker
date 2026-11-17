@@ -1,0 +1,219 @@
+
+<div class="budget-page">
+
+    <div class="page-header">
+        <div>
+            <h1>Monthly Budget</h1>
+            <p>Plan your monthly spending and track your expenses.</p>
+        </div>
+    </div>
+
+    <div class="filter-card">
+
+        <div class="filter-group">
+            <label for="month">Select Month</label>
+
+            <select
+                id="month"
+                [value]="selectedMonth()"
+                (change)="onMonthChange($any($event.target).value)">
+
+                @for (month of months; track month.value) {
+                    <option [value]="month.value">
+                        {{ month.name }}
+                    </option>
+                }
+
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="year">Select Year</label>
+
+            <input
+                id="year"
+                type="number"
+                min="1"
+                max="9999"
+                [value]="selectedYear()"
+                (change)="onYearChange($any($event.target).value)">
+        </div>
+
+    </div>
+
+    @if (loading()) {
+
+        <div class="message-card">
+            Loading budget...
+        </div>
+
+    } @else {
+
+        @if (budget(); as currentBudget) {
+
+            <div class="budget-summary">
+
+                <div class="summary-card primary-card">
+                    <span>Monthly Budget</span>
+                    <h2>{{ currentBudget.budgetAmount | currency:'INR':'symbol':'1.2-2' }}</h2>
+                </div>
+
+                <div class="summary-card">
+                    <span>Total Spent</span>
+                    <h2>{{ currentBudget.spentAmount | currency:'INR':'symbol':'1.2-2' }}</h2>
+                </div>
+
+                <div class="summary-card">
+                    <span>Remaining Budget</span>
+                    <h2 [class.negative]="currentBudget.remainingAmount < 0">
+                        {{ currentBudget.remainingAmount | currency:'INR':'symbol':'1.2-2' }}
+                    </h2>
+                </div>
+
+            </div>
+
+            <div class="progress-card">
+
+                <div class="progress-heading">
+                    <div>
+                        <h3>Budget Usage</h3>
+                        <p>{{ selectedMonthName }} {{ selectedYear() }}</p>
+                    </div>
+
+                    <strong [class.over-budget]="currentBudget.percentageUsed > 100">
+                        {{ currentBudget.percentageUsed }}%
+                    </strong>
+                </div>
+
+                <div class="progress-track">
+                    <div
+                        class="progress-fill"
+                        [class.over-budget-fill]="currentBudget.percentageUsed > 100"
+                        [style.width]="percentageWidth()">
+                    </div>
+                </div>
+
+                <p class="progress-description">
+                    @if (currentBudget.percentageUsed > 100) {
+                        You have exceeded your monthly budget.
+                    } @else {
+                        You have used {{ currentBudget.percentageUsed }}% of your budget.
+                    }
+                </p>
+
+            </div>
+
+        } @else {
+
+            <div class="empty-card">
+                <h2>No Budget Set</h2>
+                <p>
+                    You haven't created a budget for
+                    {{ selectedMonthName }} {{ selectedYear() }}.
+                </p>
+                <p>Create your monthly budget below to start tracking your spending.</p>
+            </div>
+
+        }
+
+        <div class="form-card">
+
+            <h2>
+                @if (budget()) {
+                    @if (isEditing()) {
+                        Update Monthly Budget
+                    } @else {
+                        Manage Monthly Budget
+                    }
+                } @else {
+                    Create Monthly Budget
+                }
+            </h2>
+
+            <p class="form-description">
+                Set the amount you want to spend during this month.
+            </p>
+
+            @if (error()) {
+                <div class="alert error-alert">
+                    {{ error() }}
+                </div>
+            }
+
+            @if (success()) {
+                <div class="alert success-alert">
+                    {{ success() }}
+                </div>
+            }
+
+            @if (!budget() || isEditing()) {
+
+                <form [formGroup]="budgetForm" (ngSubmit)="onSubmit()">
+
+                    <div class="form-group">
+                        <label for="amount">Budget Amount (₹)</label>
+
+                        <input
+                            id="amount"
+                            type="number"
+                            formControlName="amount"
+                            min="0.01"
+                            step="0.01"
+                            placeholder="Enter your monthly budget">
+
+                        @if (
+                            budgetForm.controls.amount.touched &&
+                            budgetForm.controls.amount.invalid
+                        ) {
+                            <small class="field-error">
+                                Please enter an amount greater than zero.
+                            </small>
+                        }
+                    </div>
+
+                    <div class="form-actions">
+
+                        <button
+                            type="submit"
+                            class="primary-button"
+                            [disabled]="saving()">
+
+                            @if (saving()) {
+                                Saving...
+                            } @else {
+                                {{ budget() ? 'Update Budget' : 'Create Budget' }}
+                            }
+
+                        </button>
+
+                        @if (budget() && isEditing()) {
+                            <button
+                                type="button"
+                                class="secondary-button"
+                                (click)="cancelEditing()">
+                                Cancel
+                            </button>
+                        }
+
+                    </div>
+
+                </form>
+
+            } @else {
+
+                <div class="form-actions">
+                    <button
+                        type="button"
+                        class="primary-button"
+                        (click)="startEditing()">
+                        Edit Budget
+                    </button>
+                </div>
+
+            }
+
+        </div>
+
+    }
+
+</div>

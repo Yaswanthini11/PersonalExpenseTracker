@@ -1,150 +1,130 @@
 
-<div class="dashboard-page">
+<div class="dashboard-container">
 
     <!-- Header -->
     <header class="dashboard-header">
 
-        <div class="brand">
-            <h2>Personal Expense Tracker</h2>
-            <p>Manage your money wisely</p>
+        <div class="header-content">
+            <h1>Personal Expense Tracker</h1>
+            <p>Manage your expenses and monthly budget easily.</p>
         </div>
 
-        <button
-            type="button"
-            class="logout-button"
-            (click)="logout()"
-        >
+        <button class="logout-button" (click)="logout()">
             Logout
         </button>
 
     </header>
 
-    <main class="dashboard-content">
+    <!-- Welcome Section -->
+    <section class="welcome-section">
 
-        <!-- Welcome -->
-        <section class="welcome-section">
+        <div>
+            <h2>
+                Welcome, {{ currentUser()?.fullName || 'User' }}!
+            </h2>
 
-            <div>
-                <h1>
-                    Welcome,
-                    {{ currentUser()?.fullName || 'User' }}!
-                </h1>
+            <p>
+                Track your spending, manage categories and stay within your budget.
+            </p>
+        </div>
+
+    </section>
+
+    <!-- Profile Section -->
+    <section class="profile-section">
+
+        <h2>My Profile</h2>
+
+        <div class="profile-details">
+
+            <div class="profile-item">
+                <span>Full Name</span>
+                <strong>{{ currentUser()?.fullName || 'Not available' }}</strong>
+            </div>
+
+            <div class="profile-item">
+                <span>Email Address</span>
+                <strong>{{ currentUser()?.email || 'Not available' }}</strong>
+            </div>
+
+            <div class="profile-item">
+                <span>Phone Number</span>
+                <strong>{{ currentUser()?.phoneNumber || 'Not provided' }}</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Modules Section -->
+    <section class="modules-section">
+
+        <div class="section-heading">
+            <h2>Manage Your Finances</h2>
+            <p>Choose a module to get started.</p>
+        </div>
+
+        <div class="modules-grid">
+
+            <!-- Expense Management -->
+            <a routerLink="/expenses" class="module-card">
+
+                <div class="module-icon expense-icon">
+                    💸
+                </div>
+
+                <h3>Expense Management</h3>
 
                 <p>
-                    Keep track of your expenses and manage your finances.
+                    Add, view, update and delete your daily expenses.
                 </p>
-            </div>
 
-        </section>
+                <span class="module-link">
+                    Manage Expenses →
+                </span>
 
-        <!-- User Profile -->
-        <section class="profile-section">
+            </a>
 
-            <div class="section-heading">
-                <h2>Your Profile</h2>
-            </div>
+            <!-- Category Management -->
+            <a routerLink="/categories" class="module-card">
 
-            <div class="profile-grid">
-
-                <div class="profile-item">
-                    <span>Full Name</span>
-                    <strong>{{ currentUser()?.fullName || '-' }}</strong>
+                <div class="module-icon category-icon">
+                    🗂️
                 </div>
 
-                <div class="profile-item">
-                    <span>Email Address</span>
-                    <strong>{{ currentUser()?.email || '-' }}</strong>
+                <h3>Category Management</h3>
+
+                <p>
+                    Organize your expenses using default and custom categories.
+                </p>
+
+                <span class="module-link">
+                    Manage Categories →
+                </span>
+
+            </a>
+
+            <!-- Monthly Budget -->
+            <a routerLink="/budgets" class="module-card">
+
+                <div class="module-icon budget-icon">
+                    💰
                 </div>
 
-                <div class="profile-item">
-                    <span>Phone Number</span>
-                    <strong>{{ currentUser()?.phoneNumber || 'Not provided' }}</strong>
-                </div>
+                <h3>Monthly Budget</h3>
 
-            </div>
+                <p>
+                    Set your monthly budget and monitor your spending.
+                </p>
 
-        </section>
+                <span class="module-link">
+                    Manage Budget →
+                </span>
 
-        <!-- Modules -->
-        <section class="modules-section">
+            </a>
 
-            <div class="section-heading">
-                <h2>Manage Your Expenses</h2>
-                <p>Choose a module to continue.</p>
-            </div>
+        </div>
 
-            <div class="modules-grid">
-
-                <!-- Expense Management -->
-                <a
-                    routerLink="/expenses"
-                    class="module-card expense-card"
-                >
-                    <div class="module-icon">₹</div>
-
-                    <h3>Expenses</h3>
-
-                    <p>
-                        Add, view, update and delete your daily expenses.
-                    </p>
-
-                    <span class="module-link">
-                        Manage Expenses →
-                    </span>
-                </a>
-
-                <!-- Category Management -->
-                <a
-                    routerLink="/categories"
-                    class="module-card category-card"
-                >
-                    <div class="module-icon">▦</div>
-
-                    <h3>Categories</h3>
-
-                    <p>
-                        View default categories and manage your custom categories.
-                    </p>
-
-                    <span class="module-link">
-                        Manage Categories →
-                    </span>
-                </a>
-
-                <!-- Monthly Budget -->
-                <div class="module-card coming-soon">
-                    <div class="module-icon">◷</div>
-
-                    <h3>Monthly Budget</h3>
-
-                    <p>
-                        Set monthly spending limits and track your budget.
-                    </p>
-
-                    <span class="coming-label">
-                        Coming Soon
-                    </span>
-                </div>
-
-                <!-- Reports -->
-                <div class="module-card coming-soon">
-                    <div class="module-icon">▤</div>
-
-                    <h3>Reports</h3>
-
-                    <p>
-                        Understand your spending patterns through reports.
-                    </p>
-
-                    <span class="coming-label">
-                        Coming Soon
-                    </span>
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
+    </section>
 
 </div>
