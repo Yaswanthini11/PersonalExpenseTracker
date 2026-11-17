@@ -1,81 +1,144 @@
 
 <div class="dashboard-container">
 
+    <!-- Header -->
     <header class="dashboard-header">
 
-        <h2>Personal Expense Tracker</h2>
+        <div class="brand">
+            <h2>Expense Tracker</h2>
+        </div>
 
-        <button class="logout-button" (click)="logout()">
+        <button
+            type="button"
+            class="logout-button"
+            (click)="logout()">
             Logout
         </button>
 
     </header>
 
+    <!-- Main Content -->
     <main class="dashboard-content">
 
-        @if (isLoading()) {
+        <section class="welcome-section">
 
-            <div class="loading-message">
-                <p>Loading your profile...</p>
-            </div>
+            @if (currentUser(); as user) {
 
-        } @else if (errorMessage()) {
+                <h1>Welcome, {{ user.fullName }}!</h1>
 
-            <div class="error-message">
-                {{ errorMessage() }}
-            </div>
+                <p>
+                    Manage your personal expenses and keep track
+                    of your spending.
+                </p>
 
-        } @else {
+            } @else {
 
-            @if (authService.currentUser(); as user) {
+                <h1>Welcome!</h1>
 
-                <div class="welcome-card">
+                <p>Loading your account details...</p>
 
-                    <h1>
-                        Welcome, {{ user.fullName }}!
-                    </h1>
+            }
 
-                    <p class="success-message">
-                        You have successfully logged in.
-                    </p>
+        </section>
 
-                    <div class="user-details">
+        <!-- User Information -->
+        @if (currentUser(); as user) {
 
-                        <h3>Your Profile</h3>
+            <section class="profile-card">
 
-                        <p>
-                            <strong>User ID:</strong>
-                            {{ user.userId }}
-                        </p>
+                <h2>Account Information</h2>
 
-                        <p>
-                            <strong>Full Name:</strong>
+                <div class="profile-details">
+
+                    <div class="detail-item">
+                        <span class="detail-label">Full Name</span>
+                        <span class="detail-value">
                             {{ user.fullName }}
-                        </p>
+                        </span>
+                    </div>
 
-                        <p>
-                            <strong>Email:</strong>
+                    <div class="detail-item">
+                        <span class="detail-label">Email</span>
+                        <span class="detail-value">
                             {{ user.email }}
-                        </p>
+                        </span>
+                    </div>
 
-                        <p>
-                            <strong>Phone:</strong>
+                    <div class="detail-item">
+                        <span class="detail-label">Phone Number</span>
+                        <span class="detail-value">
                             {{ user.phoneNumber || 'Not provided' }}
-                        </p>
-
+                        </span>
                     </div>
 
                 </div>
 
-            } @else {
-
-                <div class="error-message">
-                    User information is unavailable.
-                </div>
-
-            }
+            </section>
 
         }
+
+        <!-- Application Modules -->
+        <section class="modules-section">
+
+            <h2>Manage Your Expenses</h2>
+
+            <div class="module-grid">
+
+                <article class="module-card">
+
+                    <div class="module-icon">📂</div>
+
+                    <h3>Categories</h3>
+
+                    <p>
+                        Create and manage your expense categories.
+                        Organize your spending into meaningful groups.
+                    </p>
+
+                    <a
+                        routerLink="/categories"
+                        class="module-link">
+                        Manage Categories
+                    </a>
+
+                </article>
+
+                <article class="module-card coming-soon">
+
+                    <div class="module-icon">💰</div>
+
+                    <h3>Expenses</h3>
+
+                    <p>
+                        Record, update and track your daily expenses.
+                    </p>
+
+                    <span class="coming-soon-label">
+                        Coming Soon
+                    </span>
+
+                </article>
+
+                <article class="module-card coming-soon">
+
+                    <div class="module-icon">📊</div>
+
+                    <h3>Reports</h3>
+
+                    <p>
+                        Understand your spending patterns through
+                        expense summaries and reports.
+                    </p>
+
+                    <span class="coming-soon-label">
+                        Coming Soon
+                    </span>
+
+                </article>
+
+            </div>
+
+        </section>
 
     </main>
 
